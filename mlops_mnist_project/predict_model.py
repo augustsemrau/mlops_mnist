@@ -6,8 +6,14 @@ python <project_name>/models/predict_model.py \
     models/my_trained_model.pt \  # file containing a pretrained model
     data/example_images.npy  # file containing just 10 images for prediction
 """
+import os
 
 import torch
+
+from data.dataloader import GetDataloader
+
+## Function that loads a torch model
+
 
 def predict(
     model: torch.nn.Module,
@@ -24,5 +30,22 @@ def predict(
 
     """
 
-    
+
     return torch.cat([model(batch) for batch in dataloader], 0)
+
+if __name__ == "__main__":
+    print("Predicting like a madman")
+
+    # Load model
+    model = torch.load(os.path.join(os.path.dirname(__file__), "..", "models", "model.pt"))
+    datloader = GetDataloader(train=False, batch_size=64, shuffle=False)
+
+    # Predict
+    predictions = predict(model, datloader)
+
+    # Save predictions
+    
+
+
+
+
