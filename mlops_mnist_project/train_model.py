@@ -53,4 +53,4 @@ def train(lr):
 
 
 if __name__ == "__main__":
-    train(1e-4)
+    train(1e-3)
