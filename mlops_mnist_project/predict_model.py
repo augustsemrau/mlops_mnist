@@ -30,6 +30,8 @@ def predict(
 
     """
 
+    
+
 
     return torch.cat([model(batch) for batch in dataloader], 0)
 
@@ -44,7 +46,15 @@ if __name__ == "__main__":
     predictions = predict(model, datloader)
 
     # Save predictions
-    
+    torch.save(predictions, os.path.join(os.path.dirname(__file__), "..", "reports", "predictions", "predictions.pt"))
+
+    # Show prediction
+    print(predictions.shape)
+    print(predictions[0])
+    print(predictions[1])
+    print(predictions[2])
+
+
 
 
 
