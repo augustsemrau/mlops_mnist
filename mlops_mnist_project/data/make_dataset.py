@@ -17,8 +17,8 @@ def mnist():
     data_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "raw", "corruptmnist")
 
     # Create file name lists
-    train_image_files = [f"train_images_{i}.pt" for i in range(6)]
-    train_target_files = [f"train_target_{i}.pt" for i in range(6)]
+    train_image_files = [f"train_images_{i}.pt" for i in range(10)]
+    train_target_files = [f"train_target_{i}.pt" for i in range(10)]
     test_image_files = ["test_images.pt"]
     test_target_files = ["test_target.pt"]
 
