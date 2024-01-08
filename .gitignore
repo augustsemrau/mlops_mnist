@@ -178,4 +178,5 @@ cython_debug/
 
 
 # Ignore data for now
-data/
+data/processed/
+data/raw/
