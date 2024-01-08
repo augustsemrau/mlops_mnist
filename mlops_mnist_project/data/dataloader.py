@@ -16,19 +16,20 @@ class CustomDataset(Dataset):
         return x, y
     
 ## Function for getting dataloader
-def GetDataloader(train=True, batch_size=64, shuffle=True):
+def GetDataloader(batch_size=64, shuffle=True):
 
     base_path = os.path.join("data", "processed")
 
-    if train:
-        image_tensors = torch.load(os.path.join(base_path, "train_images.pt"))
-        target_tensors = torch.load(os.path.join(base_path, "train_targets.pt"))
-    else:
-        image_tensors = torch.load(os.path.join(base_path, "test_images.pt"))
-        target_tensors = torch.load(os.path.join(base_path, "test_targets.pt"))
-    
-    test_set = CustomDataset(image_tensors, target_tensors)
-    dataloader = DataLoader(test_set, batch_size=batch_size, shuffle=shuffle)
+    image_tensors = torch.load(os.path.join(base_path, "train_images.pt"))
+    target_tensors = torch.load(os.path.join(base_path, "train_targets.pt"))
+    train_set = CustomDataset(image_tensors, target_tensors)
+    train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=shuffle)
 
-    return dataloader
+    image_tensors = torch.load(os.path.join(base_path, "test_images.pt"))
+    target_tensors = torch.load(os.path.join(base_path, "test_targets.pt"))
+    test_set = CustomDataset(image_tensors, target_tensors)
+    test_loader = DataLoader(test_set, batch_size=None, shuffle=False)
+    
+
+    return train_loader, test_loader
 

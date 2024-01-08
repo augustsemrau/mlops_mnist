@@ -6,21 +6,7 @@ from tqdm import tqdm
 
 from models.model import MyNeuralNet
 from torch.utils.data import DataLoader, Dataset
-
-
-
-class CustomDataset(Dataset):
-    def __init__(self, image_tensors, target_tensors):
-        self.images = image_tensors
-        self.labels = target_tensors
-
-    def __len__(self):
-        return len(self.images)
-
-    def __getitem__(self, idx):
-        x = self.images[idx].unsqueeze(0)
-        y = self.labels[idx]
-        return x, y
+from data.dataloader import GetDataloader
 
 
 def train(lr):
@@ -30,11 +16,7 @@ def train(lr):
 
     model = MyNeuralNet()
 
-    base_path = os.path.join("data", "processed")
-    train_image_tensors = torch.load(os.path.join(base_path, "train_images.pt"))
-    train_target_tensors = torch.load(os.path.join(base_path, "train_targets.pt"))
-    train_set = CustomDataset(train_image_tensors, train_target_tensors)
-    train_loader = DataLoader(train_set, batch_size=64, shuffle=True)
+    train_loader, _ = GetDataloader(batch_size=64, shuffle=True)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     criterion = torch.nn.CrossEntropyLoss()
@@ -71,4 +53,4 @@ def train(lr):
 
 
 if __name__ == "__main__":
-    train(1e-3)
+    train(1e-4)
